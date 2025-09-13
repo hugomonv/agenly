@@ -1,0 +1,52 @@
+[
+  {
+    "id": "agent_1757759123269",
+    "name": "Assistant Test",
+    "description": "Agent de test pour la persistance",
+    "tenant_id": "tenant_1",
+    "created_by": "user_1",
+    "status": "draft",
+    "configuration": {
+      "personality": {
+        "tone": "friendly",
+        "expertise_level": "expert",
+        "proactivity": 7
+      }
+    },
+    "created_at": "2025-09-13T10:25:23.270Z"
+  },
+  {
+    "id": "agent_1757762271344",
+    "name": "Assistant Test",
+    "description": "Agent de test pour la connexion",
+    "tenant_id": "tenant_1",
+    "created_by": "user_1",
+    "status": "draft",
+    "configuration": {
+      "personality": {
+        "tone": "friendly",
+        "expertise_level": "expert",
+        "proactivity": 7
+      }
+    },
+    "created_at": "2025-09-13T11:17:51.344Z"
+  },
+  {
+    "id": "agent_1757767528986",
+    "name": "Assistant Restaurant",
+    "description": "Agent IA pour la gestion de restaurant",
+    "tenant_id": "tenant_1",
+    "created_by": "user_1",
+    "status": "draft",
+    "configuration": {
+      "personality": {
+        "tone": "professional",
+        "expertise_level": "intermediate",
+        "proactivity": 5
+      },
+      "capabilities": [],
+      "integrations": []
+    },
+    "created_at": "2025-09-13T12:45:28.987Z"
+  }
+]

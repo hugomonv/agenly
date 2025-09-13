@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useUser } from '@/components/providers/UserProvider';
-import { useAgents } from '@/components/providers/AgentsProvider';
+import { useUser } from '@/components/providers/FirebaseUserProvider';
+import { useAgents } from '@/components/providers/FirebaseAgentProvider';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import { 
@@ -16,7 +16,8 @@ import {
   User,
   LogOut,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Rocket
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -25,6 +26,10 @@ interface SidebarProps {
   onNewChat: () => void;
   onSelectAgent: (agentId: string) => void;
   selectedAgentId?: string;
+  activeMenu?: string;
+  onMenuChange?: (menu: string) => void;
+  onCreateAgent?: () => void;
+  onSettings?: () => void;
 }
 
 export function Sidebar({ 
@@ -32,19 +37,20 @@ export function Sidebar({
   onToggle, 
   onNewChat, 
   onSelectAgent, 
-  selectedAgentId 
+  selectedAgentId,
+  activeMenu = 'chat',
+  onMenuChange,
+  onCreateAgent,
+  onSettings
 }: SidebarProps) {
   const { user, signOut } = useUser();
   const { agents } = useAgents();
-  const [activeMenu, setActiveMenu] = useState('chat');
 
   const menuItems = [
-    { id: 'chat', icon: MessageSquare, label: 'Nouveau Chat', action: onNewChat },
-    { id: 'history', icon: History, label: 'Historique', action: () => setActiveMenu('history') },
-    { id: 'agents', icon: Bot, label: 'Mes Agents', action: () => setActiveMenu('agents') },
-    { id: 'integrations', icon: Link, label: 'Intégrations', action: () => setActiveMenu('integrations') },
-    { id: 'settings', icon: Settings, label: 'Paramètres', action: () => setActiveMenu('settings') },
-    { id: 'billing', icon: CreditCard, label: 'Abonnement', action: () => setActiveMenu('billing') },
+    { id: 'history', icon: History, label: 'Historique', action: () => onMenuChange?.('history') },
+    { id: 'integrations', icon: Link, label: 'Intégrations', action: () => onMenuChange?.('integrations') },
+    { id: 'settings', icon: Settings, label: 'Paramètres', action: () => onSettings?.() },
+    { id: 'billing', icon: CreditCard, label: 'Abonnement', action: () => onMenuChange?.('billing') },
   ];
 
   const handleSignOut = async () => {
@@ -78,8 +84,9 @@ export function Sidebar({
         </div>
       </div>
 
-      {/* New Chat Button */}
-      <div className="p-4">
+      {/* Chat Buttons */}
+      <div className="p-4 space-y-2">
+        {/* Nouveau Chat Button */}
         <Button
           onClick={onNewChat}
           className="w-full justify-start rounded-2xl btn-enhanced hover-glow smooth-transition"
@@ -87,6 +94,17 @@ export function Sidebar({
         >
           <Plus size={16} className="mr-2" />
           {!isCollapsed && 'Nouveau Chat'}
+        </Button>
+        
+        {/* Chat Actuel Button */}
+        <Button
+          onClick={() => onMenuChange?.('chat')}
+          variant="secondary"
+          className="w-full justify-start rounded-2xl hover-lift smooth-transition"
+          size="sm"
+        >
+          <MessageSquare size={16} className="mr-2" />
+          {!isCollapsed && 'Chat Actuel'}
         </Button>
       </div>
 
@@ -111,33 +129,6 @@ export function Sidebar({
         })}
       </div>
 
-      {/* Agents List */}
-      {activeMenu === 'agents' && !isCollapsed && (
-        <div className="px-2 pb-4">
-          <div className="text-xs text-white/50 uppercase tracking-wider mb-2 px-3">
-            Mes Agents
-          </div>
-          <div className="space-y-1 max-h-48 overflow-y-auto">
-            {agents.map((agent) => (
-              <button
-                key={agent.id}
-                onClick={() => onSelectAgent(agent.id)}
-                className={`w-full flex items-center px-3 py-2 rounded-lg transition-all duration-200 text-left ${
-                  selectedAgentId === agent.id
-                    ? 'bg-white/10 text-white'
-                    : 'text-white/70 hover:bg-white/5 hover:text-white'
-                }`}
-              >
-                <Bot size={14} className="mr-2 flex-shrink-0" />
-                <div className="flex-1 min-w-0">
-                  <div className="text-sm truncate">{agent.name}</div>
-                  <div className="text-xs text-white/50 truncate">{agent.description}</div>
-                </div>
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
 
       {/* User Profile */}
       <div className="p-4 border-t border-white/10">
@@ -168,3 +159,7 @@ export function Sidebar({
     </div>
   );
 }
+
+
+
+

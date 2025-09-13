@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import { UserProvider } from '@/components/providers/UserProvider';
-import { AgentsProvider } from '@/components/providers/AgentsProvider';
+import { FirebaseUserProvider } from '@/components/providers/FirebaseUserProvider';
+import { FirebaseAgentProvider } from '@/components/providers/FirebaseAgentProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -76,14 +76,18 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
       </head>
       <body className={inter.className}>
-        <UserProvider>
-          <AgentsProvider>
+        <FirebaseUserProvider>
+          <FirebaseAgentProvider>
             <div className="min-h-screen bg-black text-white">
               {children}
             </div>
-          </AgentsProvider>
-        </UserProvider>
+          </FirebaseAgentProvider>
+        </FirebaseUserProvider>
       </body>
     </html>
   );
 }
+
+
+
+

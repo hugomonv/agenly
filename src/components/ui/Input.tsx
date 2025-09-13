@@ -1,8 +1,16 @@
 'use client';
 
 import React from 'react';
-import { InputProps } from '@/types';
+// import { InputProps } from '@/types';
 import { cn } from '@/lib/utils';
+
+interface InputProps {
+  value: string;
+  onChange: (value: string) => void;
+  placeholder?: string;
+  type?: string;
+  disabled?: boolean;
+}
 
 export function Input({
   value,
@@ -31,3 +39,7 @@ export function Input({
     />
   );
 }
+
+
+
+

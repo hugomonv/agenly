@@ -1,7 +1,19 @@
 import { ConversationService } from './ConversationService';
 import { AgentService } from './AgentService';
 import { OpenAIService } from './OpenAIService';
-import { ChatRequest, ChatResponse, Agent } from '@/types';
+// import { ChatRequest } from '@/types';
+import { Agent } from '@/types';
+
+interface ChatResponse {
+  success: boolean;
+  message?: string;
+  conversationId?: string;
+  agentId?: string;
+  error?: string;
+  nextStep?: string;
+  agentData?: any;
+  shouldGenerateAgent?: boolean;
+}
 
 export class EnhancedConversationService {
   private static instance: EnhancedConversationService;
@@ -22,10 +34,10 @@ export class EnhancedConversationService {
     this.openaiService = OpenAIService.getInstance();
   }
 
-  async processChatRequest(request: ChatRequest): Promise<ChatResponse> {
+  async processChatRequest(request: any): Promise<ChatResponse> {
     try {
       let conversationId = request.conversationId;
-      let agent: Agent | null = null;
+      let agent: any = null;
 
       // Get or create conversation
       if (!conversationId) {
@@ -61,8 +73,8 @@ export class EnhancedConversationService {
         content: aiResponse.message,
         timestamp: new Date(),
         metadata: {
-          model: agent?.model || 'gpt-4',
-          temperature: agent?.temperature || 0.7,
+          model_used: agent?.model || 'gpt-4',
+          processing_time: 0,
         },
       });
 
@@ -70,6 +82,7 @@ export class EnhancedConversationService {
       const shouldGenerateAgent = await this.shouldGenerateAgent(request.message, agent);
 
       return {
+        success: true,
         message: aiResponse.message,
         nextStep: aiResponse.nextStep,
         agentData: shouldGenerateAgent ? await this.generateAgentFromConversation(conversationId) : undefined,
@@ -85,7 +98,7 @@ export class EnhancedConversationService {
   private async generateAIResponse(
     userMessage: string,
     conversationId: string,
-    agent?: Agent | null
+    agent?: any
   ): Promise<{ message: string; nextStep?: string }> {
     try {
       // Get conversation history
@@ -126,7 +139,7 @@ export class EnhancedConversationService {
   private determineNextStep(
     userMessage: string,
     aiResponse: string,
-    agent?: Agent | null
+    agent?: any
   ): string | undefined {
     const message = userMessage.toLowerCase();
     const response = aiResponse.toLowerCase();
@@ -154,7 +167,7 @@ export class EnhancedConversationService {
     return undefined;
   }
 
-  private async shouldGenerateAgent(userMessage: string, agent?: Agent | null): Promise<boolean> {
+  private async shouldGenerateAgent(userMessage: string, agent?: any): Promise<boolean> {
     if (agent) return false; // Already has an agent
 
     const message = userMessage.toLowerCase();
@@ -182,7 +195,7 @@ export class EnhancedConversationService {
         objectives: 'Assister l\'utilisateur selon ses besoins spécifiques',
         features: ['Chat intelligent', 'Réponses personnalisées', 'Contexte conversationnel'],
         personality: 'Professionnel et utile',
-        userId: conversation.userId,
+        userId: conversation.user_id,
         conversationId: conversationId,
       });
 
@@ -195,7 +208,7 @@ export class EnhancedConversationService {
 
   async getConversationContext(conversationId: string): Promise<{
     messages: any[];
-    agent?: Agent | null;
+    agent?: any;
     summary?: string;
   }> {
     try {
@@ -204,9 +217,9 @@ export class EnhancedConversationService {
         throw new Error('Conversation not found');
       }
 
-      let agent: Agent | null = null;
-      if (conversation.agentId) {
-        agent = await this.agentService.getAgent(conversation.agentId);
+      let agent: any = null;
+      if (conversation.agent_id) {
+        agent = await this.agentService.getAgent(conversation.agent_id);
       }
 
       // Generate conversation summary
@@ -243,3 +256,7 @@ export class EnhancedConversationService {
 }
 
 export default EnhancedConversationService.getInstance();
+
+
+
+

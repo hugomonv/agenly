@@ -5,6 +5,7 @@ import { Message } from '@/types';
 import { formatRelativeTime } from '@/lib/utils';
 import { Bot, User, Copy, ThumbsUp, ThumbsDown, MoreVertical } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
+import { MessageMetadata } from './MessageMetadata';
 
 interface MessageBubbleProps {
   message: Message;
@@ -65,6 +66,9 @@ export function MessageBubble({
             <div className="whitespace-pre-wrap text-sm leading-relaxed">
               {message.content}
             </div>
+            
+            {/* Message metadata for assistant messages */}
+            {isAssistant && <MessageMetadata metadata={message.metadata} />}
           </div>
 
           {/* Message Metadata */}
@@ -75,9 +79,9 @@ export function MessageBubble({
               {formatRelativeTime(message.timestamp)}
             </span>
             
-            {message.metadata?.model && (
+            {message.metadata?.model_used && (
               <span className="text-xs text-white/50">
-                {message.metadata.model}
+                {message.metadata.model_used}
               </span>
             )}
           </div>
@@ -126,3 +130,7 @@ export function MessageBubble({
     </div>
   );
 }
+
+
+
+

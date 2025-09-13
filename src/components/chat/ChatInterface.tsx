@@ -20,7 +20,7 @@ export function ChatInterface({
   className 
 }: ChatInterfaceProps) {
   const [inputMessage, setInputMessage] = useState('');
-  const { messages, loading, error, sendMessage, clearConversation } = useChat(agentId);
+  const { messages, loading, error, sendMessage, clearConversation } = useChat();
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // Initialize with provided messages
@@ -143,3 +143,7 @@ export function ChatInterface({
     </Card>
   );
 }
+
+
+
+

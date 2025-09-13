@@ -1,7 +1,25 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { ConnectedService, UseIntegrationsReturn } from '@/types';
+// import { ConnectedService } from '@/types';
+
+interface ConnectedService {
+  id: string;
+  name: string;
+  type: string;
+  status: 'connected' | 'disconnected' | 'error';
+  lastSync?: Date;
+  config?: Record<string, any>;
+}
+
+interface UseIntegrationsReturn {
+  connectedServices: ConnectedService[];
+  loading: boolean;
+  error: string | null;
+  connectService: (serviceType: string) => Promise<void>;
+  disconnectService: (serviceId: string) => Promise<void>;
+  refreshServices: () => Promise<void>;
+}
 
 export function useIntegrations(): UseIntegrationsReturn {
   const [connectedServices, setConnectedServices] = useState<ConnectedService[]>([]);
@@ -78,7 +96,7 @@ export function useIntegrations(): UseIntegrationsReturn {
       const data = await response.json();
       if (data.success) {
         setConnectedServices(prev => 
-          prev.filter(service => service.serviceName !== serviceName)
+          prev.filter(service => service.name !== serviceName)
         );
       } else {
         throw new Error(data.error || 'Unknown error');
@@ -120,6 +138,10 @@ export function useIntegrations(): UseIntegrationsReturn {
     error,
     connectService,
     disconnectService,
-    getServiceData,
+    refreshServices: loadConnectedServices,
   };
 }
+
+
+
+

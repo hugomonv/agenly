@@ -13,7 +13,7 @@ import {
 } from 'firebase/auth';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { auth, db } from '@/lib/firebase';
-import { User, UseUserReturn } from '@/types';
+import { User, UseUserReturn } from '@/types/frontend';
 
 const UserContext = createContext<UseUserReturn | undefined>(undefined);
 
@@ -45,7 +45,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
             });
           } else {
             // Create new user document
-            const newUser: User = {
+            const newUser = {
               id: firebaseUser.uid,
               email: firebaseUser.email || '',
               displayName: firebaseUser.displayName || '',
@@ -102,7 +102,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
       await updateProfile(userCredential.user, { displayName });
       
       // Create user document in Firestore
-      const newUser: User = {
+      const newUser = {
         id: userCredential.user.uid,
         email: userCredential.user.email || '',
         displayName,
@@ -184,3 +184,7 @@ export function useUser() {
   }
   return context;
 }
+
+
+
+

@@ -1,41 +1,47 @@
 rules_version = '2';
+
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Users can read/write their own data
+    // Règles pour les utilisateurs
     match /users/{userId} {
+      // Permettre la lecture et écriture pour l'utilisateur authentifié
       allow read, write: if request.auth != null && request.auth.uid == userId;
+      // Permettre la lecture pour les autres utilisateurs (pour les profils publics)
+      allow read: if request.auth != null;
     }
     
-    // Agents belong to users
+    // Règles pour les agents
     match /agents/{agentId} {
+      // Permettre la lecture et écriture pour le propriétaire de l'agent
       allow read, write: if request.auth != null && 
-        request.auth.uid == resource.data.userId;
-      allow create: if request.auth != null && 
-        request.auth.uid == request.resource.data.userId;
+        (resource.data.userId == request.auth.uid || 
+         request.auth.token.email in resource.data.collaborators);
+      // Permettre la lecture pour tous les utilisateurs authentifiés
+      allow read: if request.auth != null;
     }
     
-    // Conversations belong to users
+    // Règles pour les conversations
     match /conversations/{conversationId} {
+      // Permettre la lecture et écriture pour le propriétaire de la conversation
       allow read, write: if request.auth != null && 
-        request.auth.uid == resource.data.userId;
-      allow create: if request.auth != null && 
-        request.auth.uid == request.resource.data.userId;
+        resource.data.userId == request.auth.uid;
     }
     
-    // Connected services belong to users
-    match /connected_services/{serviceId} {
+    // Règles pour les intégrations
+    match /integrations/{integrationId} {
+      // Permettre la lecture et écriture pour le propriétaire de l'intégration
       allow read, write: if request.auth != null && 
-        request.auth.uid == resource.data.userId;
-      allow create: if request.auth != null && 
-        request.auth.uid == request.resource.data.userId;
+        resource.data.userId == request.auth.uid;
     }
     
-    // Subscriptions belong to users
-    match /subscriptions/{subscriptionId} {
+    // Règles pour les tenants
+    match /tenants/{tenantId} {
+      // Permettre la lecture et écriture pour les membres du tenant
       allow read, write: if request.auth != null && 
-        request.auth.uid == resource.data.userId;
-      allow create: if request.auth != null && 
-        request.auth.uid == request.resource.data.userId;
+        request.auth.uid in resource.data.members;
     }
   }
 }
+
+
+

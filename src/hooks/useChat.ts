@@ -1,14 +1,22 @@
-'use client';
-
 import { useState, useCallback } from 'react';
-import { Message, UseChatReturn } from '@/types';
+import { Message } from '@/types/frontend';
 
-export function useChat(agentId?: string): UseChatReturn {
+interface UseChatReturn {
+  messages: Message[];
+  loading: boolean;
+  error: string | null;
+  sendMessage: (message: string, agentId?: string) => Promise<void>;
+  clearConversation: () => void;
+}
+
+export function useChat(): UseChatReturn {
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [context, setContext] = useState<any>({});
+  const [generatedAgent, setGeneratedAgent] = useState<any>(null);
 
-  const sendMessage = useCallback(async (message: string, targetAgentId?: string) => {
+  const sendMessage = useCallback(async (message: string, agentId?: string) => {
     if (!message.trim()) return;
 
     const userMessage: Message = {
@@ -23,6 +31,7 @@ export function useChat(agentId?: string): UseChatReturn {
     setError(null);
 
     try {
+      // Appel à l'API Next.js
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: {
@@ -30,41 +39,69 @@ export function useChat(agentId?: string): UseChatReturn {
         },
         body: JSON.stringify({
           message,
-          agentId: targetAgentId || agentId,
-          userId: 'current-user-id', // TODO: Get from auth context
+          agentId,
+          conversationId: `conv_${Date.now()}`,
+          userId: 'current-user', // TODO: Récupérer l'ID utilisateur depuis le contexte
+          context,
         }),
       });
 
       if (!response.ok) {
-        throw new Error('Failed to send message');
+        throw new Error(`Erreur API: ${response.status}`);
       }
 
       const data = await response.json();
-      
-      if (data.success) {
-        const assistantMessage: Message = {
-          id: `msg_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-          role: 'assistant',
-          content: data.data.message,
-          timestamp: new Date(),
-          metadata: {
-            model: 'gpt-4',
-            temperature: 0.7,
-          },
-        };
 
-        setMessages(prev => [...prev, assistantMessage]);
-      } else {
-        throw new Error(data.error || 'Unknown error');
+      if (!data.success) {
+        throw new Error(data.error || 'Erreur lors du traitement du message');
       }
-    } catch (err: any) {
-      setError(err.message || 'Erreur lors de l\'envoi du message');
+
+      // Mettre à jour le contexte si fourni
+      if (data.context) {
+        setContext(data.context);
+      }
+
+      // Si un agent a été généré, le sauvegarder
+      if (data.agent) {
+        setGeneratedAgent(data.agent);
+      }
+
+      const assistantMessage: Message = {
+        id: data.messageId || `msg_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+        role: 'assistant',
+        content: data.message || 'Réponse reçue de l\'agent IA',
+        timestamp: new Date(),
+        metadata: {
+          model_used: data.metadata?.model_used || 'gpt-4',
+          tokens_used: data.metadata?.tokens_used,
+          processing_time: data.metadata?.processing_time,
+          integrations_used: data.metadata?.integrations_used,
+        },
+      };
+
+      setMessages(prev => [...prev, assistantMessage]);
+    } catch (err) {
+      console.error('Erreur lors de l\'envoi du message:', err);
+      setError(err instanceof Error ? err.message : 'Erreur inconnue');
+      
+      // Message d'erreur
+      const errorMessage: Message = {
+        id: `msg_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+        role: 'assistant',
+        content: 'Désolé, une erreur s\'est produite. Veuillez réessayer.',
+        timestamp: new Date(),
+        metadata: {
+          confidence_score: 0,
+        },
+      };
+      
+      setMessages(prev => [...prev, errorMessage]);
     } finally {
       setLoading(false);
     }
-  }, [agentId]);
+  }, []);
 
-  const clearConversation = useCallback(async () => {
+  const clearConversation = useCallback(() => {
     setMessages([]);
     setError(null);
   }, []);
@@ -77,3 +114,6 @@ export function useChat(agentId?: string): UseChatReturn {
     clearConversation,
   };
 }
+
+
+

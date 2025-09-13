@@ -1,8 +1,14 @@
 'use client';
 
 import React from 'react';
-import { ButtonProps } from '@/types';
+// import { ButtonProps } from '@/types';
 import { cn } from '@/lib/utils';
+
+interface ButtonProps {
+  variant?: 'primary' | 'secondary' | 'ghost' | 'danger';
+  size?: 'sm' | 'md' | 'lg';
+  loading?: boolean;
+}
 
 export function Button({
   children,
@@ -20,6 +26,7 @@ export function Button({
     primary: 'bg-white text-black hover:bg-gray-100 focus:ring-white/20 shadow-lg hover:shadow-xl',
     secondary: 'bg-black text-white border border-white/20 hover:bg-white/10 focus:ring-white/20',
     ghost: 'text-white hover:bg-white/10 focus:ring-white/20',
+    danger: 'bg-red-600 text-white hover:bg-red-700 focus:ring-red-500/20',
   };
 
   const sizeClasses = {
@@ -66,3 +73,7 @@ export function Button({
     </button>
   );
 }
+
+
+
+

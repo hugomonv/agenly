@@ -1,8 +1,12 @@
 'use client';
 
 import React from 'react';
-import { CardProps } from '@/types';
+// import { CardProps } from '@/types';
 import { cn } from '@/lib/utils';
+
+interface CardProps {
+  onClick?: () => void;
+}
 
 export function Card({
   children,
@@ -98,3 +102,7 @@ export function CardFooter({
     </div>
   );
 }
+
+
+
+

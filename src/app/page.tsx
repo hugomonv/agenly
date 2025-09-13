@@ -1,60 +1,24 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useUser } from '@/components/providers/UserProvider';
-import { useAgents } from '@/components/providers/AgentsProvider';
+import { useUser } from '@/components/providers/FirebaseUserProvider';
+import { useAgents } from '@/components/providers/FirebaseAgentProvider';
 import { Button } from '@/components/ui/Button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Sidebar } from '@/components/layout/Sidebar';
 import { Header } from '@/components/layout/Header';
-import { ChatArea } from '@/components/chat/ChatArea';
-import { ChatInput } from '@/components/chat/ChatInput';
-// import { useChat } from '@/hooks/useChat';
-import { Message } from '@/types';
+import { ChatWithIntegrations } from '@/components/chat/ChatWithIntegrations';
+import { AgentCreator } from '@/components/agents/AgentCreator';
+import { SettingsPanel } from '@/components/settings/SettingsPanel';
+import { GoogleIntegrationPanel } from '@/components/integrations/GoogleIntegrationPanel';
+import UniversalDeploymentPanel from '@/components/deployment/UniversalDeploymentPanel';
+import { useChat } from '@/hooks/useChat';
+import { Message } from '@/types/frontend';
 
 export default function HomePage() {
   const { user, loading: userLoading, signIn, signUp, signInWithGoogle, signOut } = useUser();
   const { agents, loading: agentsLoading, createAgent } = useAgents();
-  // const { messages, loading: chatLoading, sendMessage, clearConversation } = useChat();
-  
-  // Mock chat state for now
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [chatLoading, setChatLoading] = useState(false);
-  
-  const sendMessage = async (message: string, agentId?: string) => {
-    if (!message.trim()) return;
-    
-    const userMessage: Message = {
-      id: `msg_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-      role: 'user',
-      content: message,
-      timestamp: new Date(),
-    };
-    
-    setMessages(prev => [...prev, userMessage]);
-    setChatLoading(true);
-    
-    // Simulate AI response
-    setTimeout(() => {
-      const assistantMessage: Message = {
-        id: `msg_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-        role: 'assistant',
-        content: `Merci pour votre message : "${message}". Je suis votre agent IA et je suis là pour vous aider !`,
-        timestamp: new Date(),
-        metadata: {
-          model: 'gpt-4',
-          temperature: 0.7,
-        },
-      };
-      
-      setMessages(prev => [...prev, assistantMessage]);
-      setChatLoading(false);
-    }, 1500);
-  };
-  
-  const clearConversation = () => {
-    setMessages([]);
-  };
+  const { messages, loading: chatLoading, sendMessage, clearConversation, error: chatError } = useChat();
   
   // UI State
   const [isSignUp, setIsSignUp] = useState(false);
@@ -68,12 +32,18 @@ export default function HomePage() {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [selectedAgentId, setSelectedAgentId] = useState<string | undefined>();
   const [currentChatTitle, setCurrentChatTitle] = useState('Nouveau Chat');
+  const [activeSidebarMenu, setActiveSidebarMenu] = useState('chat');
+  const [showAgentCreator, setShowAgentCreator] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
 
   // Chat handlers
   const handleNewChat = () => {
     clearConversation();
     setSelectedAgentId(undefined);
     setCurrentChatTitle('Nouveau Chat');
+    setActiveSidebarMenu('chat'); // S'assurer que le chat est affiché
+    setShowAgentCreator(false); // Fermer le créateur d'agent si ouvert
+    setShowSettings(false); // Fermer les paramètres si ouverts
   };
 
   const handleSelectAgent = (agentId: string) => {
@@ -98,8 +68,20 @@ export default function HomePage() {
   };
 
   const handleSettings = () => {
-    // TODO: Implement settings
-    console.log('Open settings');
+    setShowSettings(true);
+    setActiveSidebarMenu('settings');
+  };
+
+  const handleCreateAgent = () => {
+    setShowAgentCreator(true);
+    setActiveSidebarMenu('agents');
+  };
+
+  const handleAgentCreated = (agent: any) => {
+    console.log('Agent créé:', agent);
+    setShowAgentCreator(false);
+    setActiveSidebarMenu('chat');
+    // TODO: Refresh agents list
   };
 
   // Auth handlers
@@ -278,6 +260,10 @@ export default function HomePage() {
         onNewChat={handleNewChat}
         onSelectAgent={handleSelectAgent}
         selectedAgentId={selectedAgentId}
+        activeMenu={activeSidebarMenu}
+        onMenuChange={setActiveSidebarMenu}
+        onCreateAgent={handleCreateAgent}
+        onSettings={handleSettings}
       />
 
       {/* Main Chat Area */}
@@ -290,20 +276,90 @@ export default function HomePage() {
           onSettings={handleSettings}
         />
 
-        {/* Chat Area */}
-        <ChatArea
-          messages={messages}
-          isLoading={chatLoading}
-          selectedAgent={selectedAgentId ? agents.find(a => a.id === selectedAgentId) : undefined}
-        />
+        {/* Main Content */}
+        {activeSidebarMenu === 'chat' && (
+          <ChatWithIntegrations
+            agentId={selectedAgentId}
+            className="h-full"
+          />
+        )}
 
-        {/* Chat Input */}
-        <ChatInput
-          onSendMessage={handleSendMessage}
-          disabled={chatLoading}
-          isLoading={chatLoading}
-        />
+        {/* Agent Creator */}
+        {activeSidebarMenu === 'agents' && showAgentCreator && (
+          <div className="flex-1 overflow-y-auto">
+            <AgentCreator onAgentCreated={handleAgentCreated} />
+          </div>
+        )}
+
+        {/* Settings */}
+        {activeSidebarMenu === 'settings' && showSettings && (
+          <div className="flex-1 overflow-y-auto">
+            <SettingsPanel user={user} onClose={() => setShowSettings(false)} />
+          </div>
+        )}
+
+        {/* Integrations */}
+        {activeSidebarMenu === 'integrations' && (
+          <div className="flex-1 overflow-y-auto p-6">
+            <GoogleIntegrationPanel user={user} />
+          </div>
+        )}
+
+        {/* Universal Deployment */}
+        {activeSidebarMenu === 'deployment' && selectedAgentId && (
+          <div className="flex-1 overflow-y-auto p-6">
+            <UniversalDeploymentPanel 
+              agent={agents.find(a => a.id === selectedAgentId)!} 
+              onDeploymentComplete={(deploymentPackage) => {
+                console.log('Déploiement terminé:', deploymentPackage);
+                // Optionnel: afficher une notification de succès
+              }}
+            />
+          </div>
+        )}
+
+        {/* Deployment without selected agent */}
+        {activeSidebarMenu === 'deployment' && !selectedAgentId && (
+          <div className="flex-1 flex items-center justify-center">
+            <div className="text-center">
+              <h3 className="text-xl font-semibold text-white mb-2">🚀 Déploiement Universel</h3>
+              <p className="text-white/70 mb-4">Sélectionnez un agent pour commencer le déploiement</p>
+              <button
+                onClick={() => setActiveSidebarMenu('agents')}
+                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                Créer un agent
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Other menu content */}
+        {activeSidebarMenu === 'history' && (
+          <div className="flex-1 flex items-center justify-center">
+            <div className="text-center">
+              <h3 className="text-xl font-semibold text-white mb-2">Historique des conversations</h3>
+              <p className="text-white/70">Fonctionnalité en cours de développement</p>
+            </div>
+          </div>
+        )}
+
+
+        {activeSidebarMenu === 'billing' && (
+          <div className="flex-1 flex items-center justify-center">
+            <div className="text-center">
+              <h3 className="text-xl font-semibold text-white mb-2">Abonnement</h3>
+              <p className="text-white/70">Gérez votre abonnement et facturation</p>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
 }
+
+
+
+
+
+

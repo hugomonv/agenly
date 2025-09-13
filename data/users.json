@@ -1,0 +1,32 @@
+[
+  {
+    "id": "user_1757759119317_rsfxqdwz8",
+    "email": "test@example.com",
+    "name": "Test User",
+    "role": "admin",
+    "tenant_id": "tenant_1757759119317_m2y0l98y2",
+    "token_version": 1,
+    "created_at": "2025-09-13T10:25:19.321Z",
+    "updated_at": "2025-09-13T10:25:19.317Z"
+  },
+  {
+    "id": "user_1757762247436_exp5wwewe",
+    "email": "newuser@example.com",
+    "name": "New User",
+    "role": "admin",
+    "tenant_id": "tenant_1757762247436_ed42ptsdb",
+    "token_version": 1,
+    "created_at": "2025-09-13T11:17:27.443Z",
+    "updated_at": "2025-09-13T11:17:27.436Z"
+  },
+  {
+    "id": "user_1757762295069_znb7fvrkw",
+    "email": "frontend@example.com",
+    "name": "Frontend User",
+    "role": "admin",
+    "tenant_id": "tenant_1757762295069_e2d3d5yzi",
+    "token_version": 1,
+    "created_at": "2025-09-13T11:18:15.071Z",
+    "updated_at": "2025-09-13T11:18:15.069Z"
+  }
+]

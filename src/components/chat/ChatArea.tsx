@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
-import { Message } from '@/types';
+import { Message } from '@/types/frontend';
 import { MessageBubble } from './MessageBubble';
 import { Bot, Sparkles } from 'lucide-react';
 
@@ -93,3 +93,7 @@ export function ChatArea({ messages, isLoading, selectedAgent }: ChatAreaProps) 
     </div>
   );
 }
+
+
+
+

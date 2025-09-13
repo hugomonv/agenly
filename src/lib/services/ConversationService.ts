@@ -28,13 +28,19 @@ export class ConversationService {
   async createConversation(userId: string, agentId?: string, title?: string): Promise<Conversation> {
     try {
       const conversationData = {
-        userId,
-        agentId: agentId || null,
+        tenant_id: 'default-tenant',
+        agent_id: agentId || 'default-agent',
+        user_id: userId,
+        session_id: `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
         messages: [],
-        title: title || 'Nouvelle conversation',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        isActive: true,
+        context: {},
+        status: 'active' as const,
+        created_at: new Date(),
+        updated_at: new Date(),
+        metadata: {
+          user_agent: 'web',
+          ip_address: '127.0.0.1',
+        },
       };
 
       const conversationRef = await addDoc(collection(db, this.collectionName), conversationData);
@@ -60,13 +66,22 @@ export class ConversationService {
       const data = conversationDoc.data();
       return {
         id: conversationDoc.id,
-        ...data,
-        messages: data.messages.map((msg: any) => ({
+        tenant_id: data.tenant_id || 'default-tenant',
+        agent_id: data.agent_id || 'default-agent',
+        user_id: data.user_id || 'default-user',
+        session_id: data.session_id || 'default-session',
+        messages: data.messages?.map((msg: any) => ({
           ...msg,
           timestamp: msg.timestamp?.toDate() || new Date(),
-        })),
-        createdAt: data.createdAt?.toDate() || new Date(),
-        updatedAt: data.updatedAt?.toDate() || new Date(),
+        })) || [],
+        context: data.context || {},
+        status: data.status || 'active',
+        created_at: data.created_at?.toDate() || new Date(),
+        updated_at: data.updated_at?.toDate() || new Date(),
+        metadata: data.metadata || {
+          user_agent: 'web',
+          ip_address: '127.0.0.1',
+        },
       } as Conversation;
     } catch (error) {
       console.error('Error getting conversation:', error);
@@ -88,13 +103,22 @@ export class ConversationService {
         const data = doc.data();
         return {
           id: doc.id,
-          ...data,
-          messages: data.messages.map((msg: any) => ({
+          tenant_id: data.tenant_id || 'default-tenant',
+          agent_id: data.agent_id || 'default-agent',
+          user_id: data.user_id || 'default-user',
+          session_id: data.session_id || 'default-session',
+          messages: data.messages?.map((msg: any) => ({
             ...msg,
             timestamp: msg.timestamp?.toDate() || new Date(),
-          })),
-          createdAt: data.createdAt?.toDate() || new Date(),
-          updatedAt: data.updatedAt?.toDate() || new Date(),
+          })) || [],
+          context: data.context || {},
+          status: data.status || 'active',
+          created_at: data.created_at?.toDate() || new Date(),
+          updated_at: data.updated_at?.toDate() || new Date(),
+          metadata: data.metadata || {
+            user_agent: 'web',
+            ip_address: '127.0.0.1',
+          },
         };
       }) as Conversation[];
     } catch (error) {
@@ -175,13 +199,22 @@ export class ConversationService {
         const data = doc.data();
         return {
           id: doc.id,
-          ...data,
-          messages: data.messages.map((msg: any) => ({
+          tenant_id: data.tenant_id || 'default-tenant',
+          agent_id: data.agent_id || 'default-agent',
+          user_id: data.user_id || 'default-user',
+          session_id: data.session_id || 'default-session',
+          messages: data.messages?.map((msg: any) => ({
             ...msg,
             timestamp: msg.timestamp?.toDate() || new Date(),
-          })),
-          createdAt: data.createdAt?.toDate() || new Date(),
-          updatedAt: data.updatedAt?.toDate() || new Date(),
+          })) || [],
+          context: data.context || {},
+          status: data.status || 'active',
+          created_at: data.created_at?.toDate() || new Date(),
+          updated_at: data.updated_at?.toDate() || new Date(),
+          metadata: data.metadata || {
+            user_agent: 'web',
+            ip_address: '127.0.0.1',
+          },
         };
       }) as Conversation[];
     } catch (error) {
@@ -218,3 +251,7 @@ export class ConversationService {
 }
 
 export default ConversationService.getInstance();
+
+
+
+

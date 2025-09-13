@@ -1,5 +1,6 @@
 import OpenAI from 'openai';
-import { Agent, GenerateAgentRequest } from '@/types';
+// import { GenerateAgentRequest } from '@/types';
+import { Agent } from '@/types';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -15,7 +16,7 @@ export class OpenAIService {
     return OpenAIService.instance;
   }
 
-  async generateAgent(request: GenerateAgentRequest): Promise<Partial<Agent>> {
+  async generateAgent(request: any): Promise<Partial<Agent>> {
     try {
       const systemPrompt = `Tu es un expert en création d'agents IA personnalisés. 
       Crée un agent IA complet basé sur les informations fournies.
@@ -58,23 +59,29 @@ export class OpenAIService {
       return {
         name: agentData.name || request.name,
         description: agentData.description || `Agent IA pour ${request.businessType}`,
-        prompt: agentData.prompt || agentData.metadata?.systemPrompt || '',
-        instructions: agentData.instructions || agentData.metadata?.customInstructions?.join('\n') || '',
+        system_prompt: agentData.system_prompt || agentData.metadata?.systemPrompt || '',
         capabilities: agentData.capabilities || [],
-        model: 'gpt-4',
-        temperature: 0.7,
-        maxTokens: 2048,
-        isActive: true,
-        conversationCount: 0,
-        trainingData: { sources: [] },
-        metadata: {
-          version: '1.0',
-          language: 'fr',
-          systemPrompt: agentData.metadata?.systemPrompt || agentData.prompt || '',
-          customInstructions: agentData.metadata?.customInstructions || [agentData.instructions],
-          tags: agentData.metadata?.tags || [request.businessType],
-          category: agentData.metadata?.category || 'custom',
-          isMetaAgent: false,
+        personality: {
+          tone: 'professional' as const,
+          expertise_level: 'intermediate' as const,
+          proactivity: 50,
+          response_style: 'conversational' as const,
+        },
+        integrations: [],
+        knowledge_base: {
+          documents: [],
+          embeddings_id: '',
+          last_updated: new Date(),
+        },
+        version: '1.0.0',
+        created_at: new Date(),
+        updated_at: new Date(),
+        created_by: request.userId || 'system',
+        usage_stats: {
+          total_conversations: 0,
+          total_messages: 0,
+          last_used: new Date(),
+          avg_response_time: 0,
         },
         status: 'active',
         deployments: {
@@ -82,7 +89,7 @@ export class OpenAIService {
           iframe: false,
           api: false,
         },
-      };
+      } as Partial<Agent>;
     } catch (error) {
       console.error('Error generating agent:', error);
       throw new Error('Failed to generate agent');
@@ -127,6 +134,33 @@ export class OpenAIService {
       throw new Error('Failed to generate response');
     }
   }
+
+  /**
+   * Méthode generateCompletion pour compatibilité avec les nouveaux services
+   */
+  async generateCompletion(messages: Array<{ role: string; content: string }>, options?: {
+    model?: string;
+    temperature?: number;
+    max_tokens?: number;
+  }): Promise<string> {
+    try {
+      const completion = await openai.chat.completions.create({
+        model: options?.model || 'gpt-4',
+        messages: messages as any,
+        temperature: options?.temperature || 0.7,
+        max_tokens: options?.max_tokens || 2048,
+      });
+
+      return completion.choices[0]?.message?.content || '';
+    } catch (error) {
+      console.error('Error in generateCompletion:', error);
+      throw new Error('Failed to get completion');
+    }
+  }
 }
 
 export default OpenAIService.getInstance();
+
+
+
+

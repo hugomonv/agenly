@@ -1,14 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { OpenAIService } from '@/lib/services/OpenAIService';
-import { AgentService } from '@/lib/services/AgentService';
-import { GenerateAgentRequest } from '@/types';
-
-const openaiService = OpenAIService.getInstance();
-const agentService = AgentService.getInstance();
+import { agentGenerationService } from '@/lib/services/AgentGenerationService';
 
 export async function POST(request: NextRequest) {
   try {
-    const body: GenerateAgentRequest = await request.json();
+    const body = await request.json();
     const { businessType, name, objectives, features, personality, userId, conversationId } = body;
 
     // Validate required fields
@@ -19,8 +14,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Generate agent using OpenAI
-    const agentData = await openaiService.generateAgent({
+    // Generate agent using the new service
+    const result = await agentGenerationService.generateAgent({
       businessType,
       name,
       objectives,
@@ -30,16 +25,19 @@ export async function POST(request: NextRequest) {
       conversationId: conversationId || '',
     });
 
-    // Create agent in database
-    const createdAgent = await agentService.createAgent({
-      ...agentData,
-      userId,
-      conversationId: conversationId || '',
-    });
+    if (!result.success) {
+      return NextResponse.json(
+        { 
+          success: false,
+          error: result.error || 'Failed to generate agent'
+        },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json({
       success: true,
-      data: createdAgent,
+      data: result.agent,
     });
   } catch (error) {
     console.error('Error generating agent:', error);
@@ -53,3 +51,7 @@ export async function POST(request: NextRequest) {
     );
   }
 }
+
+
+
+

@@ -13,7 +13,7 @@ import {
   increment 
 } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
-import { Agent } from '@/types';
+import { Agent } from '@/types/frontend';
 
 export class AgentService {
   private static instance: AgentService;
@@ -197,3 +197,7 @@ export class AgentService {
 }
 
 export default AgentService.getInstance();
+
+
+
+

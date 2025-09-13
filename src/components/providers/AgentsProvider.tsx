@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { AgentService } from '@/lib/services/AgentService';
-import { Agent, UseAgentsReturn } from '@/types';
+import { Agent, UseAgentsReturn } from '@/types/frontend';
 import { useUser } from './UserProvider';
 
 const AgentsContext = createContext<UseAgentsReturn | undefined>(undefined);
@@ -110,7 +110,6 @@ export function AgentsProvider({ children }: { children: React.ReactNode }) {
     createAgent,
     updateAgent,
     deleteAgent,
-    getAgent,
   };
 
   return (
@@ -127,3 +126,7 @@ export function useAgents() {
   }
   return context;
 }
+
+
+
+

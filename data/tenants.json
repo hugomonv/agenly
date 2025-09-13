@@ -1,0 +1,35 @@
+[
+  {
+    "id": "tenant_1757759119322",
+    "name": "Test Company",
+    "owner_id": "user_1757759119317_rsfxqdwz8",
+    "subscription_plan": "free",
+    "settings": {
+      "max_agents": 3,
+      "max_integrations": 2
+    },
+    "created_at": "2025-09-13T10:25:19.322Z"
+  },
+  {
+    "id": "tenant_1757762247443",
+    "name": "New Company",
+    "owner_id": "user_1757762247436_exp5wwewe",
+    "subscription_plan": "free",
+    "settings": {
+      "max_agents": 3,
+      "max_integrations": 2
+    },
+    "created_at": "2025-09-13T11:17:27.444Z"
+  },
+  {
+    "id": "tenant_1757762295071",
+    "name": "Frontend Company",
+    "owner_id": "user_1757762295069_znb7fvrkw",
+    "subscription_plan": "free",
+    "settings": {
+      "max_agents": 3,
+      "max_integrations": 2
+    },
+    "created_at": "2025-09-13T11:18:15.071Z"
+  }
+]

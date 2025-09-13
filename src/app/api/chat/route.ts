@@ -1,13 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { EnhancedConversationService } from '@/lib/services/EnhancedConversationService';
+import { intelligentChatService } from '@/lib/services/IntelligentChatService';
 import { adminAuth } from '@/lib/firebase-admin';
-import { ChatRequest } from '@/types';
-
-const enhancedConversationService = EnhancedConversationService.getInstance();
 
 export async function POST(request: NextRequest) {
   try {
-    const body: ChatRequest = await request.json();
+    const body = await request.json();
     const { message, conversationId, userId, agentId } = body;
 
     // Validate required fields
@@ -28,18 +25,15 @@ export async function POST(request: NextRequest) {
     //   }
     // }
 
-    // Process chat request
-    const response = await enhancedConversationService.processChatRequest({
+    // Process chat request with intelligent service
+    const response = await intelligentChatService.processChatRequest({
       message,
       conversationId,
       userId,
-      agentId,
+      agentId
     });
 
-    return NextResponse.json({
-      success: true,
-      data: response,
-    });
+    return NextResponse.json(response);
   } catch (error) {
     console.error('Error in chat API:', error);
     return NextResponse.json(
@@ -66,8 +60,16 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Get conversation context
-    const context = await enhancedConversationService.getConversationContext(conversationId);
+    // Get conversation context (simplified for now)
+    const context = {
+      conversationId,
+      userId,
+      messages: [],
+      metadata: {
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      }
+    };
 
     return NextResponse.json({
       success: true,
@@ -85,3 +87,7 @@ export async function GET(request: NextRequest) {
     );
   }
 }
+
+
+
+

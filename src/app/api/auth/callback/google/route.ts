@@ -1,110 +1,128 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { OAuth2Client } from 'google-auth-library';
-import { doc, setDoc, getDoc } from 'firebase/firestore';
-import { db } from '@/lib/firebase';
-import { ConnectedService } from '@/types';
-
-const googleClient = new OAuth2Client(
-  process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
-  process.env.GOOGLE_CLIENT_SECRET,
-  `${process.env.NEXT_PUBLIC_APP_URL}/api/auth/callback/google`
-);
+import { FirebaseUserService } from '@/lib/services/FirebaseUserService';
 
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const code = searchParams.get('code');
-    const state = searchParams.get('state');
+    const state = searchParams.get('state'); // userId
     const error = searchParams.get('error');
 
-    // Handle OAuth errors
     if (error) {
-      console.error('OAuth error:', error);
-      return NextResponse.redirect(`${process.env.NEXT_PUBLIC_APP_URL}/?error=oauth_error`);
+      console.error('Erreur OAuth:', error);
+      return NextResponse.redirect(
+        `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/?error=oauth_error`
+      );
     }
 
-    // Validate required parameters
-    if (!code) {
-      return NextResponse.redirect(`${process.env.NEXT_PUBLIC_APP_URL}/?error=missing_params`);
+    if (!code || !state) {
+      return NextResponse.redirect(
+        `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/?error=missing_params`
+      );
     }
 
-    try {
-      // Exchange code for tokens
-      const { tokens } = await googleClient.getToken(code);
-      
-      if (!tokens.access_token || !tokens.refresh_token) {
-        throw new Error('No tokens received');
-      }
+    const userId = state;
 
-      // Get user info from Google
-      googleClient.setCredentials(tokens);
-      const ticket = await googleClient.verifyIdToken({
-        idToken: tokens.id_token!,
-        audience: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+    // Échanger le code contre les tokens
+    const tokenResponse = await exchangeCodeForTokens(code);
+    
+    if (!tokenResponse.success) {
+      console.error('Erreur échange tokens:', tokenResponse.error);
+      return NextResponse.redirect(
+        `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/?error=token_exchange_failed`
+      );
+    }
+
+    // Stocker les tokens dans Firebase
+    const userService = FirebaseUserService.getInstance();
+    
+    // Vérifier si l'utilisateur existe, sinon le créer
+    let user = await userService.getUserById(userId);
+    if (!user) {
+      console.log('Utilisateur non trouvé, création automatique:', userId);
+      user = await userService.createUser({
+        email: `test-${userId}@example.com`,
+        name: `Test User ${userId}`,
+        role: 'user',
+        preferences: {},
+        subscription: { plan: 'free', status: 'active' }
       });
-      
-      const payload = ticket.getPayload();
-      if (!payload) {
-        throw new Error('Invalid token payload');
-      }
-
-      const userId = payload.sub;
-      const email = payload.email;
-      const name = payload.name;
-
-      // Save tokens to Firestore
-      const serviceData: ConnectedService = {
-        id: `${userId}_google-oauth`,
-        userId,
-        serviceName: 'google-calendar', // Default service
-        accessToken: tokens.access_token,
-        refreshToken: tokens.refresh_token,
-        expiresAt: new Date(tokens.expiry_date || Date.now() + 3600000),
-        scope: tokens.scope || 'https://www.googleapis.com/auth/calendar',
-        connectedAt: new Date(),
-        isActive: true,
-      };
-
-      await setDoc(doc(db, 'connected_services', serviceData.id), {
-        ...serviceData,
-        connectedAt: serviceData.connectedAt,
-        expiresAt: serviceData.expiresAt,
-      });
-
-      // Create or update user document
-      const userRef = doc(db, 'users', userId);
-      const userDoc = await getDoc(userRef);
-      
-      if (!userDoc.exists()) {
-        await setDoc(userRef, {
-          id: userId,
-          email,
-          displayName: name,
-          photoURL: payload.picture,
-          usage: {
-            agentsCreated: 0,
-            lastActivity: new Date(),
-          },
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        });
-      } else {
-        await setDoc(userRef, {
-          ...userDoc.data(),
-          updatedAt: new Date(),
-        }, { merge: true });
-      }
-
-      // Redirect to success page
-      return NextResponse.redirect(`${process.env.NEXT_PUBLIC_APP_URL}/?connected=true`);
-
-    } catch (tokenError) {
-      console.error('Token exchange error:', tokenError);
-      return NextResponse.redirect(`${process.env.NEXT_PUBLIC_APP_URL}/?error=token_error`);
+      console.log('Utilisateur créé avec ID:', user.id);
+      // Utiliser l'ID généré par Firebase pour la suite
+      userId = user.id;
     }
+    
+    await userService.updateUserIntegrations(userId, {
+      google: {
+        accessToken: tokenResponse.accessToken,
+        refreshToken: tokenResponse.refreshToken,
+        expiresAt: tokenResponse.expiresAt,
+        scopes: tokenResponse.scopes,
+        connectedAt: new Date().toISOString()
+      }
+    });
 
-  } catch (error) {
-    console.error('OAuth callback error:', error);
-    return NextResponse.redirect(`${process.env.NEXT_PUBLIC_APP_URL}/?error=callback_error`);
+    // Rediriger vers la page de succès
+    return NextResponse.redirect(
+      `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/?success=google_connected`
+    );
+
+  } catch (error: any) {
+    console.error('Erreur callback OAuth:', error);
+    return NextResponse.redirect(
+      `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/?error=callback_error`
+    );
   }
 }
+
+async function exchangeCodeForTokens(code: string) {
+  try {
+    const clientId = process.env.GOOGLE_CLIENT_ID;
+    const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
+    const redirectUri = process.env.GOOGLE_REDIRECT_URI || 'http://localhost:3000/api/auth/callback/google';
+
+    if (!clientId || !clientSecret) {
+      return { success: false, error: 'Google credentials not configured' };
+    }
+
+    const tokenUrl = 'https://oauth2.googleapis.com/token';
+    const tokenData = new URLSearchParams({
+      client_id: clientId,
+      client_secret: clientSecret,
+      code: code,
+      grant_type: 'authorization_code',
+      redirect_uri: redirectUri
+    });
+
+    const response = await fetch(tokenUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: tokenData
+    });
+
+    if (!response.ok) {
+      const errorData = await response.text();
+      console.error('Erreur token response:', errorData);
+      return { success: false, error: 'Token exchange failed' };
+    }
+
+    const tokens = await response.json();
+
+    return {
+      success: true,
+      accessToken: tokens.access_token,
+      refreshToken: tokens.refresh_token,
+      expiresAt: new Date(Date.now() + (tokens.expires_in * 1000)).toISOString(),
+      scopes: tokens.scope?.split(' ') || []
+    };
+
+  } catch (error: any) {
+    console.error('Erreur échange tokens:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+
+
