@@ -8,9 +8,15 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "lint:fix": "next lint --fix",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "type-check": "tsc --noEmit",
+    "auto-improve": "node scripts/auto-improve.js",
+    "auto-improve:watch": "nodemon --watch src --exec 'npm run auto-improve'",
+    "quality-check": "npm run type-check && npm run lint && npm run test",
+    "pre-commit": "npm run quality-check && npm run auto-improve"
   },
   "dependencies": {
     "@google-cloud/firestore": "^6.0.0",

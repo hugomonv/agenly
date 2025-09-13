@@ -1,0 +1,32 @@
+{
+  "cursor.backgroundAgent": {
+    "enabled": true,
+    "autoFix": true,
+    "continuousLearning": true,
+    "errorDetection": true,
+    "performanceOptimization": true,
+    "codeQualityChecks": true,
+    "securityScanning": true,
+    "dependencyUpdates": true,
+    "testGeneration": true,
+    "documentationGeneration": true
+  },
+  "cursor.ai": {
+    "model": "gpt-4",
+    "temperature": 0.1,
+    "maxTokens": 4000,
+    "contextWindow": 8000
+  },
+  "cursor.workspace": {
+    "autoSave": true,
+    "formatOnSave": true,
+    "lintOnSave": true,
+    "typeCheckOnSave": true
+  },
+  "cursor.learning": {
+    "learnFromErrors": true,
+    "learnFromFixes": true,
+    "learnFromUserFeedback": true,
+    "adaptToCodebase": true
+  }
+}

@@ -1,0 +1,566 @@
+{
+  "timestamp": "2025-09-13T23:46:40.365Z",
+  "errors": [
+    {
+      "type": "typescript",
+      "message": "Erreurs TypeScript détectées",
+      "details": "src/agents/master-agent/MasterAgent.ts(2,24): error TS2306: File '/Users/coraliemonvoisin/AGENTLY 2/src/utils/logger.ts' is not a module.\nsrc/app/api/agents/[agentId]/route.ts(2,36): error TS2307: Cannot find module '@/lib/services/HybridAgentService' or its corresponding type declarations.\nsrc/app/api/agents/[agentId]/route.ts(3,40): error TS2307: Cannot find module '@/lib/services/AgentDeploymentService' or its corresponding type declarations.\nsrc/app/api/auth/callback/google/route.ts(2,37): error TS2307: Cannot find module '@/lib/services/FirebaseUserService' or its corresponding type declarations.\nsrc/app/api/auth/callback/google/route.ts(52,7): error TS2588: Cannot assign to 'userId' because it is a constant.\nsrc/app/api/chat/route.ts(2,40): error TS2307: Cannot find module '@/lib/services/IntelligentChatService' or its corresponding type declarations.\nsrc/app/api/chat/route.ts(3,27): error TS2307: Cannot find module '@/lib/firebase-admin' or its corresponding type declarations.\nsrc/app/api/deploy/packages/[packageId]/download/route.ts(2,38): error TS2307: Cannot find module '@/lib/services/PersistentPackageService' or its corresponding type declarations.\nsrc/app/api/deploy/packages/[packageId]/route.ts(2,38): error TS2307: Cannot find module '@/lib/services/PersistentPackageService' or its corresponding type declarations.\nsrc/app/api/deploy/packages/[packageId]/route.ts(3,39): error TS2307: Cannot find module '@/lib/services/UniversalDeploymentEngine' or its corresponding type declarations.\nsrc/app/api/deploy/route.ts(2,40): error TS2307: Cannot find module '@/lib/services/AgentDeploymentService' or its corresponding type declarations.\nsrc/app/api/deploy/universal/route.ts(2,39): error TS2307: Cannot find module '@/lib/services/UniversalDeploymentEngine' or its corresponding type declarations.\nsrc/app/api/deploy/universal/route.ts(3,36): error TS2307: Cannot find module '@/lib/services/HybridAgentService' or its corresponding type declarations.\nsrc/app/api/deploy/universal/route.ts(4,35): error TS2307: Cannot find module '@/lib/services/TestDeploymentService' or its corresponding type declarations.\nsrc/app/api/deploy/universal/route.ts(5,38): error TS2307: Cannot find module '@/lib/services/PersistentPackageService' or its corresponding type declarations.\nsrc/app/api/generate-agent/route.ts(2,40): error TS2307: Cannot find module '@/lib/services/AgentGenerationService' or its corresponding type declarations.\nsrc/app/api/integrations/google/status/route.ts(2,36): error TS2307: Cannot find module '@/lib/services/GoogleOAuthService' or its corresponding type declarations.\nsrc/app/api/intelligent-chat/route.ts(2,45): error TS2307: Cannot find module '@/lib/services/EnhancedConversationService' or its corresponding type declarations.\nsrc/app/api/stripe/route.ts(5,3): error TS2322: Type '\"2023-10-16\"' is not assignable to type '\"2025-08-27.basil\"'.\nsrc/app/layout.tsx(4,38): error TS2307: Cannot find module '@/components/providers/FirebaseUserProvider' or its corresponding type declarations.\nsrc/app/layout.tsx(5,39): error TS2307: Cannot find module '@/components/providers/FirebaseAgentProvider' or its corresponding type declarations.\nsrc/app/page.tsx(4,25): error TS2307: Cannot find module '@/components/providers/FirebaseUserProvider' or its corresponding type declarations.\nsrc/app/page.tsx(5,27): error TS2307: Cannot find module '@/components/providers/FirebaseAgentProvider' or its corresponding type declarations.\nsrc/app/page.tsx(6,24): error TS2307: Cannot find module '@/components/ui/Button' or its corresponding type declarations.\nsrc/app/page.tsx(7,75): error TS2307: Cannot find module '@/components/ui/Card' or its corresponding type declarations.\nsrc/app/page.tsx(8,25): error TS2307: Cannot find module '@/components/layout/Sidebar' or its corresponding type declarations.\nsrc/app/page.tsx(9,24): error TS2307: Cannot find module '@/components/layout/Header' or its corresponding type declarations.\nsrc/app/page.tsx(10,38): error TS2307: Cannot find module '@/components/chat/ChatWithIntegrations' or its corresponding type declarations.\nsrc/app/page.tsx(11,30): error TS2307: Cannot find module '@/components/agents/AgentCreator' or its corresponding type declarations.\nsrc/app/page.tsx(12,31): error TS2307: Cannot find module '@/components/settings/SettingsPanel' or its corresponding type declarations.\nsrc/app/page.tsx(13,40): error TS2307: Cannot find module '@/components/integrations/GoogleIntegrationPanel' or its corresponding type declarations.\nsrc/app/page.tsx(14,38): error TS2307: Cannot find module '@/components/deployment/UniversalDeploymentPanel' or its corresponding type declarations.\nsrc/app/page.tsx(15,25): error TS2307: Cannot find module '@/hooks/useChat' or its corresponding type declarations.\nsrc/app/page.tsx(16,25): error TS2307: Cannot find module '@/types/frontend' or its corresponding type declarations.\nsrc/auth/middleware/authMiddleware.ts(6,24): error TS2306: File '/Users/coraliemonvoisin/AGENTLY 2/src/utils/logger.ts' is not a module.\nsrc/auth/subscription-check/subscriptionCheck.ts(3,24): error TS2306: File '/Users/coraliemonvoisin/AGENTLY 2/src/utils/logger.ts' is not a module.\nsrc/auth/tenant-isolation/tenantIsolation.ts(3,24): error TS2306: File '/Users/coraliemonvoisin/AGENTLY 2/src/utils/logger.ts' is not a module.\nsrc/components/AgentGallery.tsx(4,23): error TS2307: Cannot find module '@/lib/firebase-models' or its corresponding type declarations.\nsrc/components/chat/ChatArea.tsx(4,25): error TS2307: Cannot find module '@/types/frontend' or its corresponding type declarations.\nsrc/components/chat/ChatInput.tsx(4,24): error TS2307: Cannot find module '@/components/ui/Button' or its corresponding type declarations.\nsrc/components/chat/ChatInterface.tsx(4,24): error TS2307: Cannot find module '@/components/ui/Button' or its corresponding type declarations.\nsrc/components/chat/ChatInterface.tsx(5,23): error TS2307: Cannot find module '@/components/ui/Input' or its corresponding type declarations.\nsrc/components/chat/ChatInterface.tsx(6,35): error TS2307: Cannot find module '@/components/ui/Card' or its corresponding type declarations.\nsrc/components/chat/ChatInterface.tsx(7,25): error TS2307: Cannot find module '@/hooks/useChat' or its corresponding type declarations.\nsrc/components/chat/ChatInterface.tsx(8,25): error TS2307: Cannot find module '@/types' or its corresponding type declarations.\nsrc/components/chat/ChatInterface.tsx(9,36): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.\nsrc/components/chat/ChatWithIntegrations.tsx(4,25): error TS2307: Cannot find module '@/hooks/useChat' or its corresponding type declarations.\nsrc/components/chat/ChatWithIntegrations.tsx(9,24): error TS2307: Cannot find module '@/components/ui/Button' or its corresponding type declarations.\nsrc/components/chat/ChatWithIntegrations.tsx(10,35): error TS2307: Cannot find module '@/components/ui/Card' or its corresponding type declarations.\nsrc/components/chat/ChatWithIntegrations.tsx(139,15): error TS2741: Property 'description' is missing in type '{ id: string; name: string; }' but required in type '{ id: string; name: string; description: string; }'.\nsrc/components/chat/DeploymentOptions.tsx(4,24): error TS2307: Cannot find module '@/components/ui/Button' or its corresponding type declarations.\nsrc/components/chat/DeploymentOptions.tsx(5,35): error TS2307: Cannot find module '@/components/ui/Card' or its corresponding type declarations.\nsrc/components/chat/IntegrationButtons.tsx(4,24): error TS2307: Cannot find module '@/components/ui/Button' or its corresponding type declarations.\nsrc/components/chat/IntegrationButtons.tsx(5,35): error TS2307: Cannot find module '@/components/ui/Card' or its corresponding type declarations.\nsrc/components/chat/MessageBubble.tsx(4,25): error TS2307: Cannot find module '@/types' or its corresponding type declarations.\nsrc/components/chat/MessageBubble.tsx(5,36): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.\nsrc/components/chat/MessageBubble.tsx(7,24): error TS2307: Cannot find module '@/components/ui/Button' or its corresponding type declarations.\nsrc/components/chat/MessageBubble.tsx(8,33): error TS2306: File '/Users/coraliemonvoisin/AGENTLY 2/src/components/chat/MessageMetadata.tsx' is not a module.\nsrc/components/deployment/UniversalDeploymentPanel.tsx(4,23): error TS2307: Cannot find module '@/lib/firebase-models' or its corresponding type declarations.\nsrc/components/layout/Header.tsx(4,24): error TS2307: Cannot find module '@/components/ui/Button' or its corresponding type declarations.\nsrc/components/layout/Sidebar.tsx(4,25): error TS2307: Cannot find module '@/components/providers/FirebaseUserProvider' or its corresponding type declarations.\nsrc/components/layout/Sidebar.tsx(5,27): error TS2307: Cannot find module '@/components/providers/FirebaseAgentProvider' or its corresponding type declarations.\nsrc/components/layout/Sidebar.tsx(6,24): error TS2307: Cannot find module '@/components/ui/Button' or its corresponding type declarations.\nsrc/components/layout/Sidebar.tsx(7,22): error TS2307: Cannot find module '@/components/ui/Card' or its corresponding type declarations.\nsrc/components/providers/AgentsProvider.tsx(4,30): error TS2307: Cannot find module '@/lib/services/AgentService' or its corresponding type declarations.\nsrc/components/providers/AgentsProvider.tsx(5,40): error TS2307: Cannot find module '@/types/frontend' or its corresponding type declarations.\nsrc/components/providers/BackendAgentsProvider.tsx(4,40): error TS2307: Cannot find module '@/types/frontend' or its corresponding type declarations.\nsrc/components/providers/BackendUserProvider.tsx(4,37): error TS2307: Cannot find module '@/types/frontend' or its corresponding type declarations.\nsrc/components/providers/FirebaseUserProvider.tsx(4,22): error TS2307: Cannot find module '@/lib/firebase-models' or its corresponding type declarations.\nsrc/components/providers/FirebaseUserProvider.tsx(5,37): error TS2307: Cannot find module '@/lib/services/FirebaseUserService' or its corresponding type declarations.\nsrc/components/providers/FirebaseUserProvider.tsx(6,22): error TS2307: Cannot find module '@/lib/firebase' or its corresponding type declarations.\nsrc/components/providers/UserProvider.tsx(15,26): error TS2307: Cannot find module '@/lib/firebase' or its corresponding type declarations.\nsrc/components/providers/UserProvider.tsx(16,37): error TS2307: Cannot find module '@/types/frontend' or its corresponding type declarations.\nsrc/components/settings/SettingsPanel.tsx(4,24): error TS2307: Cannot find module '@/components/ui/Button' or its corresponding type declarations.\nsrc/components/settings/SettingsPanel.tsx(5,75): error TS2307: Cannot find module '@/components/ui/Card' or its corresponding type declarations.\nsrc/components/ui/Button.tsx(5,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.\nsrc/components/ui/Card.tsx(5,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.\nsrc/components/ui/Input.tsx(5,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.\nsrc/config/database.ts(1,22): error TS2307: Cannot find module 'knex' or its corresponding type declarations.\nsrc/config/database.ts(2,29): error TS2307: Cannot find module 'mongodb' or its corresponding type declarations.\nsrc/config/database.ts(3,19): error TS2307: Cannot find module 'ioredis' or its corresponding type declarations.\nsrc/hooks/useChat.ts(2,25): error TS2307: Cannot find module '@/types/frontend' or its corresponding type declarations.\nsrc/lib/services/AdvancedPromptService.ts(246,94): error TS1501: This regular expression flag is only available when targeting 'es2018' or later.\nsrc/lib/services/AdvancedPromptService.ts(251,91): error TS1501: This regular expression flag is only available when targeting 'es2018' or later.\nsrc/lib/services/AgentDeploymentService.ts(1,36): error TS2306: File '/Users/coraliemonvoisin/AGENTLY 2/src/lib/services/HybridAgentService.ts' is not a module.\nsrc/lib/services/AgentDeploymentService.ts(2,23): error TS2306: File '/Users/coraliemonvoisin/AGENTLY 2/src/lib/firebase-models.ts' is not a module.\nsrc/lib/services/AgentGenerationService.ts(2,36): error TS2306: File '/Users/coraliemonvoisin/AGENTLY 2/src/lib/services/HybridAgentService.ts' is not a module.\nsrc/lib/services/AgentGenerationService.ts(5,23): error TS2306: File '/Users/coraliemonvoisin/AGENTLY 2/src/lib/firebase-models.ts' is not a module.\nsrc/lib/services/AgentService.ts(15,20): error TS2307: Cannot find module '@/lib/firebase' or its corresponding type declarations.\nsrc/lib/services/AgentService.ts(16,23): error TS2307: Cannot find module '@/types/frontend' or its corresponding type declarations.\nsrc/lib/services/ConversationService.ts(14,20): error TS2307: Cannot find module '@/lib/firebase' or its corresponding type declarations.\nsrc/lib/services/ConversationService.ts(15,39): error TS2307: Cannot find module '@/types' or its corresponding type declarations.\nsrc/lib/services/EnhancedConversationService.ts(5,23): error TS2307: Cannot find module '@/types' or its corresponding type declarations.\nsrc/lib/services/FirebaseAgentService.ts(15,20): error TS2307: Cannot find module '@/lib/firebase' or its corresponding type declarations.\nsrc/lib/services/FirebaseAgentService.ts(16,36): error TS2307: Cannot find module '@/lib/firebase-models' or its corresponding type declarations.\nsrc/lib/services/FirebaseAgentServiceV2.ts(14,20): error TS2307: Cannot find module '@/lib/firebase' or its corresponding type declarations.\nsrc/lib/services/FirebaseAgentServiceV2.ts(15,36): error TS2307: Cannot find module '@/lib/firebase-models' or its corresponding type declarations.\nsrc/lib/services/FirebaseUserService.ts(13,20): error TS2307: Cannot find module '@/lib/firebase' or its corresponding type declarations.\nsrc/lib/services/FirebaseUserService.ts(14,35): error TS2307: Cannot find module '@/lib/firebase-models' or its corresponding type declarations.\nsrc/lib/services/GoogleIntegrationService.ts(4,22): error TS2306: File '/Users/coraliemonvoisin/AGENTLY 2/src/lib/firebase-models.ts' is not a module.\nsrc/lib/services/GoogleIntegrationService.ts(27,28): error TS2673: Constructor of class 'GoogleCalendarService' is private and only accessible within the class declaration.\nsrc/lib/services/GoogleIntegrationService.ts(28,25): error TS2673: Constructor of class 'GoogleGmailService' is private and only accessible within the class declaration.\nsrc/lib/services/IntelligentChatService.ts(2,36): error TS2306: File '/Users/coraliemonvoisin/AGENTLY 2/src/lib/services/HybridAgentService.ts' is not a module.\nsrc/lib/services/IntelligentChatService.ts(395,7): error TS2353: Object literal may only specify known properties, and 'action' does not exist in type 'ChatResponse'.\nsrc/lib/services/IntelligentChatService.ts(435,7): error TS2353: Object literal may only specify known properties, and 'action' does not exist in type 'ChatResponse'.\nsrc/lib/services/IntelligentChatService.ts(546,9): error TS2353: Object literal may only specify known properties, and 'action' does not exist in type 'ChatResponse'.\nsrc/lib/services/IntelligentChatService.ts(574,9): error TS2353: Object literal may only specify known properties, and 'action' does not exist in type 'ChatResponse'.\nsrc/lib/services/OpenAIService.ts(3,23): error TS2307: Cannot find module '@/types' or its corresponding type declarations.\nsrc/lib/services/TestDeploymentService.ts(1,23): error TS2306: File '/Users/coraliemonvoisin/AGENTLY 2/src/lib/firebase-models.ts' is not a module.\nsrc/lib/services/TestDeploymentService.ts(54,51): error TS2306: File '/Users/coraliemonvoisin/AGENTLY 2/src/lib/services/HybridAgentService.ts' is not a module.\nsrc/lib/services/UniversalDeploymentEngine.ts(1,23): error TS2306: File '/Users/coraliemonvoisin/AGENTLY 2/src/lib/firebase-models.ts' is not a module.\nsrc/middleware/errorHandler.ts(2,24): error TS2306: File '/Users/coraliemonvoisin/AGENTLY 2/src/utils/logger.ts' is not a module.\nsrc/middleware/requestLogger.ts(3,24): error TS2306: File '/Users/coraliemonvoisin/AGENTLY 2/src/utils/logger.ts' is not a module.\nsrc/routes/agents.ts(6,30): error TS2306: File '/Users/coraliemonvoisin/AGENTLY 2/src/services/agent/AgentService.ts' is not a module.\nsrc/routes/agents.ts(7,24): error TS2306: File '/Users/coraliemonvoisin/AGENTLY 2/src/utils/logger.ts' is not a module.\nsrc/routes/analytics.ts(4,24): error TS2306: File '/Users/coraliemonvoisin/AGENTLY 2/src/utils/logger.ts' is not a module.\nsrc/routes/auth.ts(4,24): error TS2306: File '/Users/coraliemonvoisin/AGENTLY 2/src/utils/logger.ts' is not a module.\nsrc/routes/conversations.ts(5,24): error TS2306: File '/Users/coraliemonvoisin/AGENTLY 2/src/utils/logger.ts' is not a module.\nsrc/routes/deployment.ts(5,30): error TS2306: File '/Users/coraliemonvoisin/AGENTLY 2/src/services/agent/AgentService.ts' is not a module.\nsrc/routes/deployment.ts(6,24): error TS2306: File '/Users/coraliemonvoisin/AGENTLY 2/src/utils/logger.ts' is not a module.\nsrc/routes/integrations.ts(4,24): error TS2306: File '/Users/coraliemonvoisin/AGENTLY 2/src/utils/logger.ts' is not a module.\nsrc/server/index.ts(3,18): error TS2307: Cannot find module 'cors' or its corresponding type declarations.\nsrc/server/index.ts(4,20): error TS2307: Cannot find module 'helmet' or its corresponding type declarations.\nsrc/server/index.ts(5,23): error TS2307: Cannot find module 'express-rate-limit' or its corresponding type declarations.\nsrc/server/index.ts(8,24): error TS2306: File '/Users/coraliemonvoisin/AGENTLY 2/src/utils/logger.ts' is not a module.\nsrc/server/index.ts(16,26): error TS2306: File '/Users/coraliemonvoisin/AGENTLY 2/src/routes/tenants.ts' is not a module.\nsrc/server/index.ts(20,27): error TS2306: File '/Users/coraliemonvoisin/AGENTLY 2/src/routes/billing.ts' is not a module.\nsrc/server/index.ts(22,27): error TS2306: File '/Users/coraliemonvoisin/AGENTLY 2/src/routes/webhooks.ts' is not a module.\nsrc/server/index.ts(23,24): error TS2306: File '/Users/coraliemonvoisin/AGENTLY 2/src/routes/chat.ts' is not a module.\nsrc/server/index.ts(25,25): error TS2306: File '/Users/coraliemonvoisin/AGENTLY 2/src/routes/oauth-test.ts' is not a module.\nsrc/server/index.ts(26,36): error TS2306: File '/Users/coraliemonvoisin/AGENTLY 2/src/routes/integrations-real.ts' is not a module.\nsrc/services/deployment/AgentDeploymentService.ts(2,24): error TS2306: File '/Users/coraliemonvoisin/AGENTLY 2/src/utils/logger.ts' is not a module.\nsrc/services/integrations/GmailService.ts(2,24): error TS2306: File '/Users/coraliemonvoisin/AGENTLY 2/src/utils/logger.ts' is not a module.\nsrc/services/integrations/GoogleCalendarService.ts(2,24): error TS2306: File '/Users/coraliemonvoisin/AGENTLY 2/src/utils/logger.ts' is not a module.\nsrc/services/oauth/GoogleOAuthService.ts(3,24): error TS2306: File '/Users/coraliemonvoisin/AGENTLY 2/src/utils/logger.ts' is not a module.\nsrc/services/openai-service/OpenAIService.ts(3,24): error TS2306: File '/Users/coraliemonvoisin/AGENTLY 2/src/utils/logger.ts' is not a module.\n"
+    },
+    {
+      "type": "eslint",
+      "message": "Erreurs ESLint détectées",
+      "details": ""
+    }
+  ],
+  "improvements": [
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/app/api/auth/callback/google/route.ts",
+      "type": "pattern_detection",
+      "pattern": "console.log en production",
+      "severity": "warning",
+      "count": 2,
+      "suggestion": "Remplacer par un logger approprié ou supprimer"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/app/api/auth/callback/google/route.ts",
+      "type": "pattern_detection",
+      "pattern": "any type utilisé",
+      "severity": "warning",
+      "count": 2,
+      "suggestion": "Utiliser des types spécifiques pour une meilleure sécurité"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/app/api/deploy/universal/route.ts",
+      "type": "pattern_detection",
+      "pattern": "console.log en production",
+      "severity": "warning",
+      "count": 4,
+      "suggestion": "Remplacer par un logger approprié ou supprimer"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/app/api/integrations/google/status/route.ts",
+      "type": "pattern_detection",
+      "pattern": "any type utilisé",
+      "severity": "warning",
+      "count": 1,
+      "suggestion": "Utiliser des types spécifiques pour une meilleure sécurité"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/app/page.tsx",
+      "type": "pattern_detection",
+      "pattern": "console.log en production",
+      "severity": "warning",
+      "count": 3,
+      "suggestion": "Remplacer par un logger approprié ou supprimer"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/app/page.tsx",
+      "type": "pattern_detection",
+      "pattern": "any type utilisé",
+      "severity": "warning",
+      "count": 3,
+      "suggestion": "Utiliser des types spécifiques pour une meilleure sécurité"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/app/page.tsx",
+      "type": "pattern_detection",
+      "pattern": "TODO non résolu",
+      "severity": "info",
+      "count": 2,
+      "suggestion": "Implémenter la fonctionnalité ou supprimer le commentaire"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/auth/middleware/authMiddleware.ts",
+      "type": "pattern_detection",
+      "pattern": "TODO non résolu",
+      "severity": "info",
+      "count": 1,
+      "suggestion": "Implémenter la fonctionnalité ou supprimer le commentaire"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/auth/subscription-check/subscriptionCheck.ts",
+      "type": "pattern_detection",
+      "pattern": "TODO non résolu",
+      "severity": "info",
+      "count": 1,
+      "suggestion": "Implémenter la fonctionnalité ou supprimer le commentaire"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/auth/tenant-isolation/tenantIsolation.ts",
+      "type": "pattern_detection",
+      "pattern": "any type utilisé",
+      "severity": "warning",
+      "count": 1,
+      "suggestion": "Utiliser des types spécifiques pour une meilleure sécurité"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/auth/tenant-isolation/tenantIsolation.ts",
+      "type": "pattern_detection",
+      "pattern": "TODO non résolu",
+      "severity": "info",
+      "count": 1,
+      "suggestion": "Implémenter la fonctionnalité ou supprimer le commentaire"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/components/AgentGallery.tsx",
+      "type": "pattern_detection",
+      "pattern": "console.log en production",
+      "severity": "warning",
+      "count": 2,
+      "suggestion": "Remplacer par un logger approprié ou supprimer"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/components/chat/ChatInput.tsx",
+      "type": "pattern_detection",
+      "pattern": "console.log en production",
+      "severity": "warning",
+      "count": 2,
+      "suggestion": "Remplacer par un logger approprié ou supprimer"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/components/chat/ChatInput.tsx",
+      "type": "pattern_detection",
+      "pattern": "TODO non résolu",
+      "severity": "info",
+      "count": 2,
+      "suggestion": "Implémenter la fonctionnalité ou supprimer le commentaire"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/components/chat/ChatInterface.tsx",
+      "type": "pattern_detection",
+      "pattern": "TODO non résolu",
+      "severity": "info",
+      "count": 1,
+      "suggestion": "Implémenter la fonctionnalité ou supprimer le commentaire"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/components/chat/ChatWithIntegrations.tsx",
+      "type": "pattern_detection",
+      "pattern": "any type utilisé",
+      "severity": "warning",
+      "count": 1,
+      "suggestion": "Utiliser des types spécifiques pour une meilleure sécurité"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/components/chat/ChatWithIntegrations.tsx",
+      "type": "pattern_detection",
+      "pattern": "TODO non résolu",
+      "severity": "info",
+      "count": 1,
+      "suggestion": "Implémenter la fonctionnalité ou supprimer le commentaire"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/components/chat/DeploymentOptions.tsx",
+      "type": "pattern_detection",
+      "pattern": "TODO non résolu",
+      "severity": "info",
+      "count": 1,
+      "suggestion": "Implémenter la fonctionnalité ou supprimer le commentaire"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/components/providers/AgentsProvider.tsx",
+      "type": "pattern_detection",
+      "pattern": "any type utilisé",
+      "severity": "warning",
+      "count": 5,
+      "suggestion": "Utiliser des types spécifiques pour une meilleure sécurité"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/components/providers/BackendAgentsProvider.tsx",
+      "type": "pattern_detection",
+      "pattern": "any type utilisé",
+      "severity": "warning",
+      "count": 5,
+      "suggestion": "Utiliser des types spécifiques pour une meilleure sécurité"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/components/providers/BackendAgentsProvider.tsx",
+      "type": "pattern_detection",
+      "pattern": "TODO non résolu",
+      "severity": "info",
+      "count": 1,
+      "suggestion": "Implémenter la fonctionnalité ou supprimer le commentaire"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/components/providers/BackendUserProvider.tsx",
+      "type": "pattern_detection",
+      "pattern": "any type utilisé",
+      "severity": "warning",
+      "count": 3,
+      "suggestion": "Utiliser des types spécifiques pour une meilleure sécurité"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/components/providers/BackendUserProvider.tsx",
+      "type": "pattern_detection",
+      "pattern": "TODO non résolu",
+      "severity": "info",
+      "count": 2,
+      "suggestion": "Implémenter la fonctionnalité ou supprimer le commentaire"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/components/providers/FirebaseUserProvider.tsx",
+      "type": "pattern_detection",
+      "pattern": "any type utilisé",
+      "severity": "warning",
+      "count": 4,
+      "suggestion": "Utiliser des types spécifiques pour une meilleure sécurité"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/components/providers/UserProvider.tsx",
+      "type": "pattern_detection",
+      "pattern": "any type utilisé",
+      "severity": "warning",
+      "count": 4,
+      "suggestion": "Utiliser des types spécifiques pour une meilleure sécurité"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/components/settings/SettingsPanel.tsx",
+      "type": "pattern_detection",
+      "pattern": "console.log en production",
+      "severity": "warning",
+      "count": 1,
+      "suggestion": "Remplacer par un logger approprié ou supprimer"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/components/settings/SettingsPanel.tsx",
+      "type": "pattern_detection",
+      "pattern": "any type utilisé",
+      "severity": "warning",
+      "count": 2,
+      "suggestion": "Utiliser des types spécifiques pour une meilleure sécurité"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/components/settings/SettingsPanel.tsx",
+      "type": "pattern_detection",
+      "pattern": "TODO non résolu",
+      "severity": "info",
+      "count": 1,
+      "suggestion": "Implémenter la fonctionnalité ou supprimer le commentaire"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/config/environment.ts",
+      "type": "pattern_detection",
+      "pattern": "console.log en production",
+      "severity": "warning",
+      "count": 1,
+      "suggestion": "Remplacer par un logger approprié ou supprimer"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/database/models/Agent.ts",
+      "type": "pattern_detection",
+      "pattern": "any type utilisé",
+      "severity": "warning",
+      "count": 6,
+      "suggestion": "Utiliser des types spécifiques pour une meilleure sécurité"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/hooks/useChat.ts",
+      "type": "pattern_detection",
+      "pattern": "TODO non résolu",
+      "severity": "info",
+      "count": 1,
+      "suggestion": "Implémenter la fonctionnalité ou supprimer le commentaire"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/hooks/useIntegrations.ts",
+      "type": "pattern_detection",
+      "pattern": "any type utilisé",
+      "severity": "warning",
+      "count": 4,
+      "suggestion": "Utiliser des types spécifiques pour une meilleure sécurité"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/lib/firebase.ts",
+      "type": "pattern_detection",
+      "pattern": "console.log en production",
+      "severity": "warning",
+      "count": 1,
+      "suggestion": "Remplacer par un logger approprié ou supprimer"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/lib/services/AdvancedPromptService.ts",
+      "type": "pattern_detection",
+      "pattern": "console.log en production",
+      "severity": "warning",
+      "count": 3,
+      "suggestion": "Remplacer par un logger approprié ou supprimer"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/lib/services/AgentGenerationService.ts",
+      "type": "pattern_detection",
+      "pattern": "console.log en production",
+      "severity": "warning",
+      "count": 3,
+      "suggestion": "Remplacer par un logger approprié ou supprimer"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/lib/services/ChatService.ts",
+      "type": "pattern_detection",
+      "pattern": "any type utilisé",
+      "severity": "warning",
+      "count": 6,
+      "suggestion": "Utiliser des types spécifiques pour une meilleure sécurité"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/lib/services/ChatService.ts",
+      "type": "pattern_detection",
+      "pattern": "TODO non résolu",
+      "severity": "info",
+      "count": 4,
+      "suggestion": "Implémenter la fonctionnalité ou supprimer le commentaire"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/lib/services/ConversationService.ts",
+      "type": "pattern_detection",
+      "pattern": "any type utilisé",
+      "severity": "warning",
+      "count": 3,
+      "suggestion": "Utiliser des types spécifiques pour une meilleure sécurité"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/lib/services/EnhancedConversationService.ts",
+      "type": "pattern_detection",
+      "pattern": "any type utilisé",
+      "severity": "warning",
+      "count": 10,
+      "suggestion": "Utiliser des types spécifiques pour une meilleure sécurité"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/lib/services/FirebaseAgentService.ts",
+      "type": "pattern_detection",
+      "pattern": "any type utilisé",
+      "severity": "warning",
+      "count": 1,
+      "suggestion": "Utiliser des types spécifiques pour une meilleure sécurité"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/lib/services/FirebaseAgentServiceV2.ts",
+      "type": "pattern_detection",
+      "pattern": "any type utilisé",
+      "severity": "warning",
+      "count": 1,
+      "suggestion": "Utiliser des types spécifiques pour une meilleure sécurité"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/lib/services/FirebaseUserService.ts",
+      "type": "pattern_detection",
+      "pattern": "console.log en production",
+      "severity": "warning",
+      "count": 1,
+      "suggestion": "Remplacer par un logger approprié ou supprimer"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/lib/services/FirebaseUserService.ts",
+      "type": "pattern_detection",
+      "pattern": "any type utilisé",
+      "severity": "warning",
+      "count": 2,
+      "suggestion": "Utiliser des types spécifiques pour une meilleure sécurité"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/lib/services/GoogleCalendarService.ts",
+      "type": "pattern_detection",
+      "pattern": "any type utilisé",
+      "severity": "warning",
+      "count": 3,
+      "suggestion": "Utiliser des types spécifiques pour une meilleure sécurité"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/lib/services/GoogleGmailService.ts",
+      "type": "pattern_detection",
+      "pattern": "any type utilisé",
+      "severity": "warning",
+      "count": 7,
+      "suggestion": "Utiliser des types spécifiques pour une meilleure sécurité"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/lib/services/IntelligentChatService.ts",
+      "type": "pattern_detection",
+      "pattern": "console.log en production",
+      "severity": "warning",
+      "count": 5,
+      "suggestion": "Remplacer par un logger approprié ou supprimer"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/lib/services/IntelligentChatService.ts",
+      "type": "pattern_detection",
+      "pattern": "any type utilisé",
+      "severity": "warning",
+      "count": 11,
+      "suggestion": "Utiliser des types spécifiques pour une meilleure sécurité"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/lib/services/OpenAIService.ts",
+      "type": "pattern_detection",
+      "pattern": "any type utilisé",
+      "severity": "warning",
+      "count": 1,
+      "suggestion": "Utiliser des types spécifiques pour une meilleure sécurité"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/lib/services/TestDeploymentService.ts",
+      "type": "pattern_detection",
+      "pattern": "console.log en production",
+      "severity": "warning",
+      "count": 18,
+      "suggestion": "Remplacer par un logger approprié ou supprimer"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/lib/services/UniversalDeploymentEngine.ts",
+      "type": "pattern_detection",
+      "pattern": "console.log en production",
+      "severity": "warning",
+      "count": 2,
+      "suggestion": "Remplacer par un logger approprié ou supprimer"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/middleware/errorHandler.ts",
+      "type": "pattern_detection",
+      "pattern": "any type utilisé",
+      "severity": "warning",
+      "count": 8,
+      "suggestion": "Utiliser des types spécifiques pour une meilleure sécurité"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/middleware/requestLogger.ts",
+      "type": "pattern_detection",
+      "pattern": "any type utilisé",
+      "severity": "warning",
+      "count": 5,
+      "suggestion": "Utiliser des types spécifiques pour une meilleure sécurité"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/routes/agents.ts",
+      "type": "pattern_detection",
+      "pattern": "any type utilisé",
+      "severity": "warning",
+      "count": 2,
+      "suggestion": "Utiliser des types spécifiques pour une meilleure sécurité"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/routes/agents.ts",
+      "type": "pattern_detection",
+      "pattern": "TODO non résolu",
+      "severity": "info",
+      "count": 6,
+      "suggestion": "Implémenter la fonctionnalité ou supprimer le commentaire"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/routes/analytics.ts",
+      "type": "pattern_detection",
+      "pattern": "TODO non résolu",
+      "severity": "info",
+      "count": 8,
+      "suggestion": "Implémenter la fonctionnalité ou supprimer le commentaire"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/routes/auth.ts",
+      "type": "pattern_detection",
+      "pattern": "TODO non résolu",
+      "severity": "info",
+      "count": 6,
+      "suggestion": "Implémenter la fonctionnalité ou supprimer le commentaire"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/routes/conversations.ts",
+      "type": "pattern_detection",
+      "pattern": "any type utilisé",
+      "severity": "warning",
+      "count": 1,
+      "suggestion": "Utiliser des types spécifiques pour une meilleure sécurité"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/routes/conversations.ts",
+      "type": "pattern_detection",
+      "pattern": "TODO non résolu",
+      "severity": "info",
+      "count": 7,
+      "suggestion": "Implémenter la fonctionnalité ou supprimer le commentaire"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/routes/integrations.ts",
+      "type": "pattern_detection",
+      "pattern": "any type utilisé",
+      "severity": "warning",
+      "count": 1,
+      "suggestion": "Utiliser des types spécifiques pour une meilleure sécurité"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/routes/integrations.ts",
+      "type": "pattern_detection",
+      "pattern": "TODO non résolu",
+      "severity": "info",
+      "count": 10,
+      "suggestion": "Implémenter la fonctionnalité ou supprimer le commentaire"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/server/index.ts",
+      "type": "pattern_detection",
+      "pattern": "any type utilisé",
+      "severity": "warning",
+      "count": 3,
+      "suggestion": "Utiliser des types spécifiques pour une meilleure sécurité"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/services/deployment/AgentDeploymentService.ts",
+      "type": "pattern_detection",
+      "pattern": "any type utilisé",
+      "severity": "warning",
+      "count": 1,
+      "suggestion": "Utiliser des types spécifiques pour une meilleure sécurité"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/services/integrations/GmailService.ts",
+      "type": "pattern_detection",
+      "pattern": "any type utilisé",
+      "severity": "warning",
+      "count": 2,
+      "suggestion": "Utiliser des types spécifiques pour une meilleure sécurité"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/services/integrations/GoogleCalendarService.ts",
+      "type": "pattern_detection",
+      "pattern": "any type utilisé",
+      "severity": "warning",
+      "count": 1,
+      "suggestion": "Utiliser des types spécifiques pour une meilleure sécurité"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/services/oauth/GoogleOAuthService.ts",
+      "type": "pattern_detection",
+      "pattern": "any type utilisé",
+      "severity": "warning",
+      "count": 2,
+      "suggestion": "Utiliser des types spécifiques pour une meilleure sécurité"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/services/openai-service/OpenAIService.ts",
+      "type": "pattern_detection",
+      "pattern": "any type utilisé",
+      "severity": "warning",
+      "count": 11,
+      "suggestion": "Utiliser des types spécifiques pour une meilleure sécurité"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/types/express.d.ts",
+      "type": "pattern_detection",
+      "pattern": "any type utilisé",
+      "severity": "warning",
+      "count": 4,
+      "suggestion": "Utiliser des types spécifiques pour une meilleure sécurité"
+    },
+    {
+      "file": "/Users/coraliemonvoisin/AGENTLY 2/src/types/index.ts",
+      "type": "pattern_detection",
+      "pattern": "any type utilisé",
+      "severity": "warning",
+      "count": 1,
+      "suggestion": "Utiliser des types spécifiques pour une meilleure sécurité"
+    }
+  ],
+  "summary": {
+    "totalErrors": 2,
+    "totalImprovements": 68,
+    "criticalIssues": 0
+  }
+}
