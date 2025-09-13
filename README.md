@@ -353,6 +353,3 @@ Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de 
 ---
 
 **AGENLY** - Créez vos agents IA en quelques minutes, pas en quelques mois. 🚀
-
-
-
